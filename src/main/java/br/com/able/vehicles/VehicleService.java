@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.able.parts.Part;
 
@@ -23,8 +24,9 @@ public class VehicleService {
 	public void gravar(Vehicle vehicle) {
 		//TODO Fazer todas as valida��es 
 		for(Part part : vehicle.getParts()) {
-			part.setVehicle(vehicle);	
+			part.setVehicle(vehicle);			
 		}
+		vehicle.atualizaSomatorio();
 		vehicleRepository.save(vehicle);
 	}
 	/**
@@ -37,4 +39,9 @@ public class VehicleService {
 		return vehicleRepository.getList();
 	}
 
-}	
+	@GetMapping("/ListMoreExpensives")
+	public List<Vehicle> getListExpensives () {
+		return vehicleRepository.getListExpensives();
+	}
+
+}

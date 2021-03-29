@@ -42,7 +42,7 @@ public class VehicleController {
 	}
 	// simulando o gravar p n criar interface;
 
-	@GetMapping("/add")
+	@GetMapping("/addTest")
 	public String add() {
 		Vehicle vehicle = new Vehicle();	
 		vehicle.setBrand("Jeep");
@@ -64,7 +64,7 @@ public class VehicleController {
 		return "Gravado com sucesso!";
 	}
 
-	@GetMapping("/ler")
+	@GetMapping("/readFileTest")
 	public String lerVehicles (){
 
 		ObjectMapper objectMapple = new ObjectMapper();
@@ -86,5 +86,11 @@ public class VehicleController {
 			e.printStackTrace();
 		}
 		return "Veículos Lidos!";
+	}
+	// Listar os nomes dos carros por ordem do somatório
+	@GetMapping("/ListMoreExpensives")
+	public List<Vehicle> getListExpensives () {
+		return vehicleService.getListExpensives();
+
 	}
 }

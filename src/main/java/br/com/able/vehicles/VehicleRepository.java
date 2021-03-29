@@ -15,4 +15,7 @@ public interface VehicleRepository extends CrudRepository <Vehicle, Integer> {
 	@Query("FROM Vehicle v WHERE v.brand = brand")
 	Vehicle getByBrand(@Param(value= "brand")String brand);
 
+	@Query("FROM Vehicle v ORDER BY v.sumValueParts DESC")
+	List<Vehicle> getListExpensives();
+
 }

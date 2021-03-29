@@ -26,7 +26,8 @@ public class Vehicle {
 	private String model;
 
 	private int year;
-	private int sumValuesParts;
+
+	private int sumValueParts;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="vehicle") 
 	private List<Part> parts;	
@@ -38,15 +39,6 @@ public class Vehicle {
 	public void add(Part part) {
 		parts.add(part);
 	}
-
-	/**public int SumValueParts(){
-	int sum = 0;
-    for(int i = 0 ; i < sumValuesParts.size(); i++) {
-        sum += sumValuesParts.get(i);
-    }
-    System.out.println("O valor total das peças desse veículo é:" +sum);
-}**/
-
 
 	public int getId() {
 		return id;
@@ -86,5 +78,21 @@ public class Vehicle {
 
 	public void setParts(List<Part> parts) {
 		this.parts = parts;
+	}
+	public int getSumValueParts() {
+		return sumValueParts;
+	}
+
+	public void setSumValueParts(int sumValueParts) {
+		this.sumValueParts = sumValueParts;
+	}
+	//Método percorre as parts e soma os valores
+
+	public  int atualizaSomatorio() {
+		sumValueParts = 0;
+		for (Part part : parts) {
+			sumValueParts += part.getValue();
+		}
+		return sumValueParts;
 	}
 }

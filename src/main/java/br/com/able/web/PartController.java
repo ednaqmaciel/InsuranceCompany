@@ -16,7 +16,7 @@ import br.com.able.vehicles.Vehicle;
 @RestController
 @RequestMapping("/part")
 public class PartController {
-	
+
 	@Autowired
 	private PartService partService;
 
@@ -24,20 +24,20 @@ public class PartController {
 	public List<Part> getList(){
 		return partService.getList();
 	}
-	
+
 	@GetMapping("/gravar")
 	//Sem interface gráfica
 	public Part gravar(Part part) {
 		partService.gravar(part);
 		return part;
 	}
-	
+
 	@GetMapping ("/get/{idPart}")
 	public Part get(@PathVariable(name="idPart", required=true) int idPart) {
 		return partService.get(idPart);
 	}
 	//simulando o gravar p n criar interface;
-	
+
 	@GetMapping("/add")
 	public String add() {
 		Part part = new Part ();

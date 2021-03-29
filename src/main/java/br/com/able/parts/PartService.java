@@ -9,11 +9,11 @@ public class PartService {
 
 	@Autowired
 	private PartRepository partRepository;
-		/**
-		 * Retorna a parts pelo ID.
-		 * @param id ID.
-		 * @return Parts.
-		 **/
+	/**
+	 * Retorna a parts pelo ID.
+	 * @param id ID.
+	 * @return Parts.
+	 **/
 	public Part get (int id) {
 		return partRepository.findById(id).get();
 	}
@@ -29,5 +29,5 @@ public class PartService {
 		// TODO Fazer as validações
 		return partRepository.getList();
 	}
-	
+
 }		
