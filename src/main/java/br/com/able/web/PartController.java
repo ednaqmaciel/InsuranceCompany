@@ -26,7 +26,6 @@ public class PartController {
 	}
 
 	@GetMapping("/gravar")
-	//Sem interface gráfica
 	public Part gravar(Part part) {
 		partService.gravar(part);
 		return part;
@@ -35,29 +34,5 @@ public class PartController {
 	@GetMapping ("/get/{idPart}")
 	public Part get(@PathVariable(name="idPart", required=true) int idPart) {
 		return partService.get(idPart);
-	}
-	//simulando o gravar p n criar interface;
-
-	@GetMapping("/add")
-	public String add() {
-		Part part = new Part ();
-		part.setName("Farol");
-		part.setValue(2166);
-		part.setDamaged(false);
-		Vehicle vehicle = new Vehicle();
-		vehicle.setBrand("Mercedes");
-		vehicle.setModel("4x4");
-		vehicle.setYear(2018);
-		part.setVehicle(vehicle);
-		vehicle.add(part);
-		partService.gravar(part);
-		Part part2 = new Part ();
-		part2.setName("Para-brisa");
-		part2.setValue(2167);
-		part2.setDamaged(false);
-		part2.setVehicle(vehicle);
-		vehicle.add(part2);
-		partService.gravar(part2);
-		return "Gravado com sucesso!";
 	}	
 }

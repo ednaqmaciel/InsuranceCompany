@@ -17,8 +17,7 @@ public class PartService {
 	public Part get (int id) {
 		return partRepository.findById(id).get();
 	}
-	public void gravar(Part parts) {
-		//TODO Fazer todas as valida��es 	
+	public void gravar(Part parts) {	
 		partRepository.save(parts);
 	}
 	/**

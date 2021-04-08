@@ -24,27 +24,61 @@ public class VehicleController {
 	@Autowired
 	private VehicleService vehicleService;
 
-	@GetMapping("/getList")
-	public List<Vehicle> getList() {
-		return vehicleService.getList();
+	@GetMapping("/readFileTest")
+	public String lerVehicles() {
+
+		ObjectMapper objectMapple = new ObjectMapper();
+
+		try {
+
+			/*
+			 * O bufferedRead: Ler a String que contem o json e converte em objeto (uma lista de veiculos).
+			 *  
+			 * */
+			String json = "";
+			BufferedReader br = new BufferedReader(new FileReader("vehicles.json"));
+			String linha = br.readLine();
+			while (linha != null) {
+				json += linha;
+				linha = br.readLine();
+			}
+			List<Vehicle> listVehicles = objectMapple.readValue(json, new TypeReference<List<Vehicle>>() {
+			});
+			//percorre cada veiculo e gravar
+			for (Vehicle v : listVehicles) {
+				vehicleService.gravar(v);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "Veículos Lidos!";
 	}
 
-	@GetMapping("/gravar")
-	// Sem interface gráfica
-	public Vehicle gravar(Vehicle vehicle) {
-		vehicleService.gravar(vehicle);
-		return vehicle;
-	}
+	
 
 	@GetMapping("/get/{idVehicle}")
 	public Vehicle get(@PathVariable(name = "idVehicle", required = true) int idVehicle) {
 		return vehicleService.get(idVehicle);
 	}
+
+	// Listar os nomes dos carros por ordem do somatório
+	@GetMapping("/getListMoreExpensives")
+	public List<Vehicle> getListExpensives() {
+		return vehicleService.getListExpensives();
+
+	}
+
+	@GetMapping("/gravar")
+	public Vehicle gravar(Vehicle vehicle) {
+		vehicleService.gravar(vehicle);
+		return vehicle;
+	}
+
 	// simulando o gravar p n criar interface;
 
 	@GetMapping("/addTest")
 	public String add() {
-		Vehicle vehicle = new Vehicle();	
+		Vehicle vehicle = new Vehicle();
 		vehicle.setBrand("Jeep");
 		vehicle.setModel("4x4");
 		vehicle.setYear(2019);
@@ -63,34 +97,10 @@ public class VehicleController {
 		vehicleService.gravar(vehicle);
 		return "Gravado com sucesso!";
 	}
-
-	@GetMapping("/readFileTest")
-	public String lerVehicles (){
-
-		ObjectMapper objectMapple = new ObjectMapper();
-
-		try {
-
-			String json="";
-			@SuppressWarnings("resource")
-			BufferedReader br = new BufferedReader(new FileReader ("vehicles.json"));
-			String linha = br.readLine();
-			while(linha !=null) {
-				json += linha;
-				linha = br.readLine();}
-			List<Vehicle> listVehicles = objectMapple.readValue(json, new TypeReference<List<Vehicle>>(){});
-			for(Vehicle v : listVehicles) {
-				vehicleService.gravar(v);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return "Veículos Lidos!";
+	
+	@GetMapping("/getList")
+	public List<Vehicle> getList() {
+		return vehicleService.getList();
 	}
-	// Listar os nomes dos carros por ordem do somatório
-	@GetMapping("/ListMoreExpensives")
-	public List<Vehicle> getListExpensives () {
-		return vehicleService.getListExpensives();
 
-	}
 }

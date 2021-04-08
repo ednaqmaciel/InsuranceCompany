@@ -86,7 +86,6 @@ public class Vehicle {
 	public void setSumValueParts(int sumValueParts) {
 		this.sumValueParts = sumValueParts;
 	}
-	//Método percorre as parts e soma os valores
 
 	public  int atualizaSomatorio() {
 		sumValueParts = 0;
